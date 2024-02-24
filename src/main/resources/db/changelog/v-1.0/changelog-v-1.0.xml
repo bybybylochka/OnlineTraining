@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="create-admins-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-answers-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-authorization-data-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-completed-course-units-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-course-units-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-courses-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-entrepreneurs-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-lessons-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-mentors-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-purchased-courses-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-questions-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-students-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-tasks-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-tests-table.xml" relativeToChangelogFile="true"/>
+
+    <include file="create-fk-admins-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-answers-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-completed-course-units-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-course-units-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-courses-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-entrepreneurs-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-mentors-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-purchased-courses-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-questions-table.xml" relativeToChangelogFile="true"/>
+    <include file="create-fk-students-table.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

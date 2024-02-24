@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-courses-table" author="Ponomareva Elizaveta">
+        <createTable tableName="courses">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="mentor_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entrepreneur_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="price" type="decimal(10,2)"/>
+            <column name="status" type="bool">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="enum('IT','LANGUAGES','MARKETING')"/>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

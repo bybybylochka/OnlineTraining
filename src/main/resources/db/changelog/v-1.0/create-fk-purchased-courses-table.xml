@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-fk-purchased-courses-table" author="Ponomareva Elizaveta">
+        <addForeignKeyConstraint baseTableName="purchased_courses"
+                                 baseColumnNames="student_id"
+                                 constraintName="fk_purchased_course_student"
+                                 referencedTableName="students"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="purchased_courses"
+                                 baseColumnNames="course_id"
+                                 constraintName="fk_purchased_course_course"
+                                 referencedTableName="courses"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
