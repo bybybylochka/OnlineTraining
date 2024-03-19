@@ -13,6 +13,6 @@ public class CourseServiceQualifier {
 
     @Named("findCourseById")
     public Course findCourseById(Long courseId) {
-        return courseService.findCourseById(courseId);
+        return courseService.findCourseEntityById(courseId);
     }
 }

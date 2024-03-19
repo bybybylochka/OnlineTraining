@@ -13,6 +13,6 @@ public class MentorServiceQualifier {
 
     @Named("findMentorById")
     public Mentor findMentorById(Long mentorId) {
-        return mentorService.findMentorById(mentorId);
+        return mentorService.findMentorEntityById(mentorId);
     }
 }

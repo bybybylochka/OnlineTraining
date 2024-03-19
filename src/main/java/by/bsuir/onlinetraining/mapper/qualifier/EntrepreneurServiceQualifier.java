@@ -13,6 +13,6 @@ public class EntrepreneurServiceQualifier {
 
     @Named("findEntrepreneurById")
     public Entrepreneur findEntrepreneurById(Long entrepreneurId) {
-        return entrepreneurService.findEntrepreneurById(entrepreneurId);
+        return entrepreneurService.findEntrepreneurEntityById(entrepreneurId);
     }
 }

@@ -13,7 +13,7 @@ public class StudentServiceQualifier {
 
     @Named("findStudentById")
     public Student findStudentById(Long studentId) {
-        return studentService.findStudentById(studentId);
+        return studentService.findStudentEntityById(studentId);
     }
 
 }
