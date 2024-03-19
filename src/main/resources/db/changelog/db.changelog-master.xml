@@ -13,4 +13,10 @@
     <changeSet id="v-1.0-tag" author="Ponomareva Elizaveta">
         <tagDatabase tag="v-1.0"/>
     </changeSet>
+
+    <include file="v-2.0/changelog-v-2.0.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="v-2.0-tag" author="Ponomareva Elizaveta">
+        <tagDatabase tag="v-2.0"/>
+    </changeSet>
 </databaseChangeLog>

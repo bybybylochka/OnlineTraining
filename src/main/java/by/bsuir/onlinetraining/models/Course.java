@@ -1,6 +1,7 @@
 package by.bsuir.onlinetraining.models;
 
 import by.bsuir.onlinetraining.models.enums.Category;
+import by.bsuir.onlinetraining.models.enums.CourseStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +28,8 @@ public class Course {
     private Entrepreneur entrepreneur;
     private String name;
     private String description;
-    private boolean status;
+    @Enumerated(value = EnumType.STRING)
+    private CourseStatus status;
     private BigDecimal price;
     @Enumerated(value = EnumType.STRING)
     private Category category;

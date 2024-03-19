@@ -1,5 +1,6 @@
 package by.bsuir.onlinetraining.models;
 
+import by.bsuir.onlinetraining.models.enums.CompletingStatus;
 import by.bsuir.onlinetraining.models.enums.CourseStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,5 +23,5 @@ public class PurchasedCourse {
     @JoinColumn(name = "student_id")
     private Student student;
     @Enumerated(EnumType.STRING)
-    private CourseStatus courseStatus;
+    private CompletingStatus completingStatus;
 }

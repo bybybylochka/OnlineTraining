@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="change_course_status_field" author="Elizaveta Ponomareva">
+        <modifyDataType tableName="courses"
+                        columnName="status"
+                        newDataType="enum('NOT_FILLED_IN', 'FILLED_IN', 'UNDER_INSPECTION', 'APPROVED')"/>
+        <renameColumn tableName="purchased_courses"
+                      oldColumnName="course_status"
+                      newColumnName="completing_status"
+                      columnDataType="enum('NOT_COMPLETED', 'COMPLETED')"/>
+    </changeSet>
+</databaseChangeLog>
