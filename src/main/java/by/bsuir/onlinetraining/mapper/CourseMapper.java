@@ -1,0 +1,24 @@
+package by.bsuir.onlinetraining.mapper;
+
+import by.bsuir.onlinetraining.mapper.qualifier.EntrepreneurServiceQualifier;
+import by.bsuir.onlinetraining.mapper.qualifier.MentorServiceQualifier;
+import by.bsuir.onlinetraining.models.Course;
+import by.bsuir.onlinetraining.request.CourseRequest;
+import by.bsuir.onlinetraining.response.CourseResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {MentorMapper.class, EntrepreneurMapper.class,
+                CourseUnitMapper.class, MentorServiceQualifier.class,
+                EntrepreneurServiceQualifier.class}
+)
+public interface CourseMapper {
+    @Mapping(target = "mentor", source = "mentorId", qualifiedByName = "findMentorById")
+    @Mapping(target = "entrepreneur", source = "entrepreneurId", qualifiedByName = "findEntrepreneurById")
+    Course mapToCourse(CourseRequest request);
+
+    CourseResponse mapToCourseResponse(Course course);
+}

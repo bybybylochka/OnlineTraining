@@ -1,13 +1,14 @@
 package by.bsuir.onlinetraining.response;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
-@Builder
-public class TestResponse {
-    private CourseUnitResponse basicInfo;
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+public class TestResponse extends CourseUnitResponse {
     private List<QuestionResponse> questionList;
 }

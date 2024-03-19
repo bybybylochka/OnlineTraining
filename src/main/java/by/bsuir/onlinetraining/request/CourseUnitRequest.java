@@ -1,10 +1,10 @@
 package by.bsuir.onlinetraining.request;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class CourseUnitRequest {
     private Long courseId;
     private int estimatedTimeInMinutes;

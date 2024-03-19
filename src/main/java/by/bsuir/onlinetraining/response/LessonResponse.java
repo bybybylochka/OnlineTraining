@@ -1,11 +1,12 @@
 package by.bsuir.onlinetraining.response;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
-public class LessonResponse {
-    private CourseUnitResponse basicInfo;
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+public class LessonResponse extends CourseUnitResponse {
     private String content;
 }

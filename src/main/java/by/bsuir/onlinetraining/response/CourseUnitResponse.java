@@ -1,12 +1,12 @@
 package by.bsuir.onlinetraining.response;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.time.Duration;
 
 @Data
-@Builder
+@SuperBuilder
 public class CourseUnitResponse {
     private Long id;
     private Long courseId;
