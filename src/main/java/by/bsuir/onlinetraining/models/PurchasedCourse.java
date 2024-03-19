@@ -1,7 +1,6 @@
 package by.bsuir.onlinetraining.models;
 
 import by.bsuir.onlinetraining.models.enums.CompletingStatus;
-import by.bsuir.onlinetraining.models.enums.CourseStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
