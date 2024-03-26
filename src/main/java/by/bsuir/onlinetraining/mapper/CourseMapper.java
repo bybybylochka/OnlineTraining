@@ -5,9 +5,7 @@ import by.bsuir.onlinetraining.mapper.qualifier.MentorServiceQualifier;
 import by.bsuir.onlinetraining.models.Course;
 import by.bsuir.onlinetraining.request.CourseRequest;
 import by.bsuir.onlinetraining.response.CourseResponse;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
 @Mapper(
         componentModel = MappingConstants.ComponentModel.SPRING,
@@ -21,4 +19,7 @@ public interface CourseMapper {
     Course mapToCourse(CourseRequest request);
 
     CourseResponse mapToCourseResponse(Course course);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateCourse(CourseRequest request, @MappingTarget Course course);
 }
