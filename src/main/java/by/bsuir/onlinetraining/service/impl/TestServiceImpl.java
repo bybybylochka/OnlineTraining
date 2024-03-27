@@ -1,5 +1,6 @@
 package by.bsuir.onlinetraining.service.impl;
 
+import by.bsuir.onlinetraining.exception.EntityNotFoundException;
 import by.bsuir.onlinetraining.mapper.TestMapper;
 import by.bsuir.onlinetraining.models.Test;
 import by.bsuir.onlinetraining.repositories.TestRepository;
@@ -17,7 +18,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public Test findTestEntityById(Long testId) {
         return testRepository.findById(testId)
-                .orElseThrow(() -> new IllegalArgumentException(""));
+                .orElseThrow(() -> new EntityNotFoundException(testId, Test.class));
     }
 
     @Override

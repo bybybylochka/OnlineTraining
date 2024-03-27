@@ -1,5 +1,6 @@
 package by.bsuir.onlinetraining.service.impl;
 
+import by.bsuir.onlinetraining.exception.EntityNotFoundException;
 import by.bsuir.onlinetraining.mapper.EntrepreneurMapper;
 import by.bsuir.onlinetraining.models.Entrepreneur;
 import by.bsuir.onlinetraining.repositories.EntrepreneurRepository;
@@ -17,11 +18,14 @@ public class EntrepreneurServiceImpl implements EntrepreneurService {
     @Override
     public Entrepreneur findEntrepreneurEntityById(Long entrepreneurId) {
         return entrepreneurRepository.findById(entrepreneurId)
-                .orElseThrow(() -> new IllegalArgumentException("Entrepreneur was not fount by id!"));
+                .orElseThrow(() -> new EntityNotFoundException(entrepreneurId, Entrepreneur.class);
     }
 
     @Override
     public EntrepreneurListResponse findAllEntrepreneurs() {
-        return null;
+        return new EntrepreneurListResponse(entrepreneurRepository.findAll()
+                .stream()
+                .map(entrepreneurMapper::mapToEntrepreneurResponse)
+                .toList());
     }
 }

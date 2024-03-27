@@ -1,5 +1,6 @@
 package by.bsuir.onlinetraining.service.impl;
 
+import by.bsuir.onlinetraining.exception.EntityNotFoundException;
 import by.bsuir.onlinetraining.mapper.MentorMapper;
 import by.bsuir.onlinetraining.models.Mentor;
 import by.bsuir.onlinetraining.repositories.MentorRepository;
@@ -17,11 +18,14 @@ public class MentorServiceImpl implements MentorService {
     @Override
     public Mentor findMentorEntityById(Long mentorId) {
         return mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new IllegalArgumentException("Mentor was not fount by id!"));
+                .orElseThrow(() -> new EntityNotFoundException(mentorId, Mentor.class));
     }
 
     @Override
     public MentorListResponse findAllMentors() {
-        return null;
+        return new MentorListResponse(mentorRepository.findAll()
+                .stream()
+                .map(mentorMapper::mapToMentorResponse)
+                .toList());
     }
 }

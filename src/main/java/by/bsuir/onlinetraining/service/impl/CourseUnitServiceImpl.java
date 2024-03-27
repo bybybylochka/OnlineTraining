@@ -1,5 +1,6 @@
 package by.bsuir.onlinetraining.service.impl;
 
+import by.bsuir.onlinetraining.exception.EntityNotFoundException;
 import by.bsuir.onlinetraining.mapper.CourseUnitMapper;
 import by.bsuir.onlinetraining.models.CourseUnit;
 import by.bsuir.onlinetraining.repositories.CourseUnitRepository;
@@ -18,22 +19,29 @@ public class CourseUnitServiceImpl implements CourseUnitService {
     @Override
     public CourseUnit findCourseUnitEntityById(Long courseUnitId) {
         return courseUnitRepository.findById(courseUnitId)
-                .orElseThrow(() -> new IllegalArgumentException("Course unit was not found by id"));
+                .orElseThrow(() -> new EntityNotFoundException(courseUnitId, CourseUnit.class));
     }
 
     @Override
     public CourseUnitResponse findCourseUnitById(Long courseUnitId) {
-        return null;
+        return courseUnitRepository.findById(courseUnitId)
+                .map(courseUnitMapper::mapToCourseUnitResponse)
+                .orElseThrow(() -> new EntityNotFoundException(courseUnitId, CourseUnit.class));
     }
 
     @Override
     public CourseUnitListResponse findAllCourseUnits() {
-        return null;
+         return new CourseUnitListResponse(courseUnitRepository.findAll()
+                 .stream()
+                 .map(courseUnitMapper::mapToCourseUnitResponse)
+                 .toList());
     }
 
 
     @Override
     public void deleteCourseUnit(Long courseUnitId) {
-
+        CourseUnit courseUnit = courseUnitRepository.findById(courseUnitId)
+                .orElseThrow(() -> new EntityNotFoundException(courseUnitId, CourseUnit.class));
+        courseUnitRepository.delete(courseUnit);
     }
 }
