@@ -3,6 +3,9 @@ package by.bsuir.onlinetraining.models;
 import by.bsuir.onlinetraining.models.enums.CompletingStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +26,6 @@ public class PurchasedCourse {
     private Student student;
     @Enumerated(EnumType.STRING)
     private CompletingStatus completingStatus;
+    @CreationTimestamp
+    private LocalDateTime purchasedAt;
 }

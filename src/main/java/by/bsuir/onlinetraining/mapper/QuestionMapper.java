@@ -4,9 +4,7 @@ import by.bsuir.onlinetraining.mapper.qualifier.TestServiceQualifier;
 import by.bsuir.onlinetraining.models.Question;
 import by.bsuir.onlinetraining.request.QuestionRequest;
 import by.bsuir.onlinetraining.response.QuestionResponse;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -21,4 +19,7 @@ public interface QuestionMapper {
     QuestionResponse mapToQuestionResponse(Question question);
 
     List<QuestionResponse> mapToQuestionResponseList(List<Question> questionList);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateQuestion(QuestionRequest request, @MappingTarget Question question);
 }

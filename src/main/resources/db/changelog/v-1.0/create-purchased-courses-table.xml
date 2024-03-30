@@ -18,6 +18,7 @@
             <column name="course_status" type="enum('SOME_STATUS')">
                 <constraints nullable="false"/>
             </column>
+            <column name="purchased_at" type="datetime"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -9,7 +9,7 @@ public interface CourseUnitService {
 
     CourseUnitResponse findCourseUnitById(Long courseUnitId);
 
-    CourseUnitListResponse findAllCourseUnits();
+    CourseUnitListResponse findAllUnitsByCourse(Long courseId);
 
     void deleteCourseUnit(Long courseUnitId);
 }

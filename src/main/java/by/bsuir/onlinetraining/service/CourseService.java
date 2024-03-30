@@ -18,6 +18,8 @@ public interface CourseService {
 
     CourseListResponse findCoursesByCategory(Category category);
 
+    CourseListResponse findCoursesByStatus(CourseStatus status);
+
     CourseResponse createCourse(CourseRequest courseRequest);
 
     CourseResponse editCourse(Long courseId, CourseRequest courseRequest);

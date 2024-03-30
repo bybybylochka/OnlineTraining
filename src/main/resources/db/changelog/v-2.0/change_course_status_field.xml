@@ -7,7 +7,7 @@
     <changeSet id="change_course_status_field" author="Elizaveta Ponomareva">
         <modifyDataType tableName="courses"
                         columnName="status"
-                        newDataType="enum('NOT_FILLED_IN', 'FILLED_IN', 'UNDER_INSPECTION', 'APPROVED')"/>
+                        newDataType="enum('NOT_FILLED_IN', 'FILLED_IN', 'UNDER_INSPECTION', 'APPROVED', 'INACTIVE')"/>
         <renameColumn tableName="purchased_courses"
                       oldColumnName="course_status"
                       newColumnName="completing_status"

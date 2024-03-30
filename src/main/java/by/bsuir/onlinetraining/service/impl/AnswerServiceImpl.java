@@ -3,15 +3,16 @@ package by.bsuir.onlinetraining.service.impl;
 import by.bsuir.onlinetraining.exception.EntityNotFoundException;
 import by.bsuir.onlinetraining.mapper.AnswerMapper;
 import by.bsuir.onlinetraining.models.Answer;
-import by.bsuir.onlinetraining.models.Course;
 import by.bsuir.onlinetraining.models.CourseUnit;
 import by.bsuir.onlinetraining.models.Student;
 import by.bsuir.onlinetraining.repositories.AnswerRepository;
 import by.bsuir.onlinetraining.request.AnswerRequest;
 import by.bsuir.onlinetraining.request.CheckAnswerRequest;
+import by.bsuir.onlinetraining.request.CompletedCourseUnitRequest;
 import by.bsuir.onlinetraining.response.AnswerResponse;
 import by.bsuir.onlinetraining.response.list.AnswerListResponse;
 import by.bsuir.onlinetraining.service.AnswerService;
+import by.bsuir.onlinetraining.service.CompletedCourseUnitService;
 import by.bsuir.onlinetraining.service.CourseUnitService;
 import by.bsuir.onlinetraining.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,8 @@ public class AnswerServiceImpl implements AnswerService {
     private final AnswerMapper answerMapper;
     private final CourseUnitService courseUnitService;
     private final StudentService studentService;
+    private final CompletedCourseUnitService completedCourseUnitService;
+
     @Override
     public Answer findAnswerEntityById(Long answerId) {
         return answerRepository.findById(answerId)
@@ -42,8 +45,14 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public AnswerResponse createAnswer(AnswerRequest answerRequest) {
         Answer answer = answerMapper.mapToAnswer(answerRequest);
-        answerRepository.save(answer);
-        return answerMapper.mapToAnswerResponse(answer);
+        Answer savedAnswer = answerRepository.save(answer);
+        CompletedCourseUnitRequest request = CompletedCourseUnitRequest.builder()
+                .courseUnitId(answerRequest.getCourseUnitId())
+                .studentId(answerRequest.getStudentId())
+                .build();
+        completedCourseUnitService.completeCourseUnit(request);
+
+        return answerMapper.mapToAnswerResponse(savedAnswer);
     }
 
     @Override

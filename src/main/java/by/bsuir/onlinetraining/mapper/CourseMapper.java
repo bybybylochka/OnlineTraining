@@ -16,6 +16,7 @@ import org.mapstruct.*;
 public interface CourseMapper {
     @Mapping(target = "mentor", source = "mentorId", qualifiedByName = "findMentorById")
     @Mapping(target = "entrepreneur", source = "entrepreneurId", qualifiedByName = "findEntrepreneurById")
+    @Mapping(target = "status", constant = "NOT_FILLED_IN")
     Course mapToCourse(CourseRequest request);
 
     CourseResponse mapToCourseResponse(Course course);

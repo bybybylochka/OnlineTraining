@@ -10,4 +10,6 @@ public interface LessonService {
     LessonListResponse findLessonsByCourse(Long courseId);
 
     LessonResponse editLesson(Long lessonId, LessonRequest request);
+
+    void deleteLesson(Long lessonId);
 }

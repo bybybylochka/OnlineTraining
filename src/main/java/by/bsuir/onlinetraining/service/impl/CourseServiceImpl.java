@@ -1,6 +1,8 @@
 package by.bsuir.onlinetraining.service.impl;
 
 import by.bsuir.onlinetraining.exception.EntityNotFoundException;
+import by.bsuir.onlinetraining.exception.InvalidNewCourseStatusException;
+import by.bsuir.onlinetraining.exception.ModifyIsNotAllowedException;
 import by.bsuir.onlinetraining.mapper.CourseMapper;
 import by.bsuir.onlinetraining.models.Course;
 import by.bsuir.onlinetraining.models.Entrepreneur;
@@ -67,16 +69,27 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public CourseListResponse findCoursesByStatus(CourseStatus status) {
+        return new CourseListResponse(courseRepository
+                .findCoursesByStatus(status)
+                .stream()
+                .map(courseMapper::mapToCourseResponse)
+                .toList());
+
+    }
+
+    @Override
     public CourseResponse createCourse(CourseRequest courseRequest) {
         Course course = courseMapper.mapToCourse(courseRequest);
-        courseRepository.save(course);
-        return courseMapper.mapToCourseResponse(course);
+        Course savedCourse = courseRepository.save(course);
+        return courseMapper.mapToCourseResponse(savedCourse);
     }
 
     @Override
     public CourseResponse editCourse(Long courseId, CourseRequest courseRequest) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException(courseId, Course.class));
+        validateCourseStatus(course);
         courseMapper.updateCourse(courseRequest, course);
         Course updatedCourse = courseRepository.save(course);
 
@@ -87,17 +100,26 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException(courseId, Course.class));
-        courseRepository.delete(course);
-
+        if (course.getStatus().equals(CourseStatus.NOT_FILLED_IN))
+            courseRepository.delete(course);
+        else changeCourseStatus(courseId, CourseStatus.INACTIVE);
     }
 
     @Override
     public CourseResponse changeCourseStatus(Long courseId, CourseStatus courseStatus) {
-        //TODO Add validation
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException(courseId, Course.class));
+        if (!courseStatus.isAllowed(course.getStatus())) {
+            throw new InvalidNewCourseStatusException(course.getStatus(), courseStatus);
+        }
         course.setStatus(courseStatus);
         courseRepository.save(course);
         return courseMapper.mapToCourseResponse(course);
+    }
+
+    private void validateCourseStatus(Course course) {
+        CourseStatus status = course.getStatus();
+        if (!status.equals(CourseStatus.NOT_FILLED_IN))
+            throw new ModifyIsNotAllowedException(status);
     }
 }

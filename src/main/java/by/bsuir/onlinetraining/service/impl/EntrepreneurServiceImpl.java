@@ -18,7 +18,7 @@ public class EntrepreneurServiceImpl implements EntrepreneurService {
     @Override
     public Entrepreneur findEntrepreneurEntityById(Long entrepreneurId) {
         return entrepreneurRepository.findById(entrepreneurId)
-                .orElseThrow(() -> new EntityNotFoundException(entrepreneurId, Entrepreneur.class);
+                .orElseThrow(() -> new EntityNotFoundException(entrepreneurId, Entrepreneur.class));
     }
 
     @Override
