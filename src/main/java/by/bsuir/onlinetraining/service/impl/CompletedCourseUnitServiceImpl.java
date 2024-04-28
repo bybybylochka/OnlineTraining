@@ -48,4 +48,21 @@ public class CompletedCourseUnitServiceImpl implements CompletedCourseUnitServic
                 .map(courseUnitMapper::mapToCompletedCourseUnitResponse)
                 .toList());
     }
+
+//    @Override
+//    public StudentRatingListResponse findStudentsRating(Long courseId) {
+//        Course course = courseService.findCourseEntityById(courseId);
+//        List<CourseUnit> courseUnits = course.getCourseUnitList();
+//        List<Lesson> lessons = new ArrayList<>();
+//        List<Task> tasks = new ArrayList<>();
+//        List<Test> tests = new ArrayList<>();
+//
+//        courseUnits.forEach(courseUnit -> {
+//            if(courseUnit instanceof Lesson) lessons.add((Lesson) courseUnit);
+//            else if (courseUnit instanceof Task) tasks.add((Task) courseUnit);
+//            else tests.add((Test) courseUnit);
+//        });
+//
+//        tasks.stream().reduce(0.0, task)
+//    }
 }

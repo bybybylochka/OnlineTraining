@@ -7,7 +7,9 @@ import by.bsuir.onlinetraining.response.CourseResponse;
 import by.bsuir.onlinetraining.response.list.CourseListResponse;
 import by.bsuir.onlinetraining.service.CourseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,9 +28,14 @@ public class CourseController {
         return courseService.findAllCourses();
     }
 
-    @GetMapping("/entrepreneur/{entrepreneurId}")
-    public CourseListResponse findCoursesByEntrepreneur(@PathVariable Long entrepreneurId) {
-        return courseService.findCoursesByEntrepreneur(entrepreneurId);
+    @GetMapping("/entrepreneur")
+    public CourseListResponse findCoursesByEntrepreneur() {
+        return courseService.findCoursesByEntrepreneur();
+    }
+
+    @GetMapping("/mentor")
+    public CourseListResponse findCourseMyMentor() {
+        return courseService.findCoursesByMentor();
     }
 
     @GetMapping("/category/{category}")
@@ -41,9 +48,9 @@ public class CourseController {
         return courseService.findCoursesByStatus(status);
     }
 
-    @PostMapping
-    public CourseResponse createCourse(@RequestBody CourseRequest courseRequest) {
-        return courseService.createCourse(courseRequest);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public CourseResponse createCourse(CourseRequest request, @RequestParam MultipartFile image) {
+        return courseService.createCourse(request, image);
     }
 
     @PutMapping("/{courseId}")

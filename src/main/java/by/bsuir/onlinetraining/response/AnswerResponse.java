@@ -14,8 +14,9 @@ public class AnswerResponse {
     private Long courseUnitId;
     private String courseUnitName;
     private Long studentId;
+    private String studentFullName;
     private String link;
-    private int mark;
+    private Integer mark;
     private String feedback;
     private LocalDate createdAt;
 }

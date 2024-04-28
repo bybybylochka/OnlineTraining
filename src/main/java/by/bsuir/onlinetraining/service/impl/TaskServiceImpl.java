@@ -46,6 +46,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public TaskResponse findTaskById(Long taskId) {
+        return taskRepository.findById(taskId)
+                .map(taskMapper::mapToTaskResponse)
+                .orElseThrow(() -> new EntityNotFoundException(taskId, Task.class));
+    }
+
+    @Override
     public TaskResponse editTask(Long taskId, TaskRequest taskRequest) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new EntityNotFoundException(taskId, Task.class));

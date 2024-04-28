@@ -6,9 +6,17 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Category {
-    IT("it-technologies"),
+    PROGRAMMING("programming"),
+    DESIGN("design"),
+    BUSINESS("business"),
+    MARKETING("marketing"),
+    GAMING("gaming"),
+    MUSIC("music"),
+    PSYCHOLOGY("psychology"),
+    HEALTH("health"),
     LANGUAGES("foreign-languages"),
-    MARKETING("marketing");
+    FINANCE("finance"),
+    OTHER("other");
 
     private final String description;
 }

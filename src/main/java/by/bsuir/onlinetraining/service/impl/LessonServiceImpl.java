@@ -25,6 +25,13 @@ public class LessonServiceImpl implements LessonService {
     private final CourseService courseService;
 
     @Override
+    public LessonResponse findLessonById(Long lessonId) {
+        return lessonRepository.findById(lessonId)
+                .map(lessonMapper::mapToLessonResponse)
+                .orElseThrow(() -> new EntityNotFoundException(lessonId, Lesson.class));
+    }
+
+    @Override
     public LessonResponse createLesson(LessonRequest lessonRequest) {
         Lesson lesson = lessonMapper.mapToLesson(lessonRequest);
         validateCourseStatus(lesson);

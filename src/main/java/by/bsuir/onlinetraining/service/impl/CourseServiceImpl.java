@@ -6,16 +6,18 @@ import by.bsuir.onlinetraining.exception.ModifyIsNotAllowedException;
 import by.bsuir.onlinetraining.mapper.CourseMapper;
 import by.bsuir.onlinetraining.models.Course;
 import by.bsuir.onlinetraining.models.Entrepreneur;
+import by.bsuir.onlinetraining.models.Mentor;
 import by.bsuir.onlinetraining.models.enums.Category;
 import by.bsuir.onlinetraining.models.enums.CourseStatus;
 import by.bsuir.onlinetraining.repositories.CourseRepository;
 import by.bsuir.onlinetraining.request.CourseRequest;
 import by.bsuir.onlinetraining.response.CourseResponse;
 import by.bsuir.onlinetraining.response.list.CourseListResponse;
-import by.bsuir.onlinetraining.service.CourseService;
-import by.bsuir.onlinetraining.service.EntrepreneurService;
+import by.bsuir.onlinetraining.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
     private final EntrepreneurService entrepreneurService;
+    private final MentorService mentorService;
+    private final ImageService imageService;
+    private final StripeService stripeService;
 
     @Override
     public Course findCourseEntityById(Long courseId) {
@@ -48,9 +53,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseListResponse findCoursesByEntrepreneur(Long entrepreneurId) {
-        Entrepreneur entrepreneur = entrepreneurService.findEntrepreneurEntityById(entrepreneurId);
+    public CourseListResponse findCoursesByEntrepreneur() {
+        Entrepreneur entrepreneur = entrepreneurService.doGetAuthenticatedEntrepreneur();
         List<Course> courses = courseRepository.findCoursesByEntrepreneur(entrepreneur);
+
+        return new CourseListResponse(courses
+                .stream()
+                .map(courseMapper::mapToCourseResponse)
+                .toList());
+    }
+
+    @Override
+    public CourseListResponse findCoursesByMentor() {
+        Mentor mentor = mentorService.doGetAuthenticatedMentor();
+        List<Course> courses = courseRepository.findCoursesByMentor(mentor);
 
         return new CourseListResponse(courses
                 .stream()
@@ -79,8 +95,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseResponse createCourse(CourseRequest courseRequest) {
+    public CourseResponse createCourse(CourseRequest courseRequest, MultipartFile image) {
         Course course = courseMapper.mapToCourse(courseRequest);
+        course.setImagePath(imageService.uploadFile(image));
+        course.setEntrepreneur(entrepreneurService.doGetAuthenticatedEntrepreneur());
         Course savedCourse = courseRepository.save(course);
         return courseMapper.mapToCourseResponse(savedCourse);
     }
@@ -97,6 +115,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void deleteCourse(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException(courseId, Course.class));
@@ -106,14 +125,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public CourseResponse changeCourseStatus(Long courseId, CourseStatus courseStatus) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException(courseId, Course.class));
         if (!courseStatus.isAllowed(course.getStatus())) {
             throw new InvalidNewCourseStatusException(course.getStatus(), courseStatus);
         }
+        if (courseStatus.equals(CourseStatus.APPROVED)) {
+            String paymentLinkForCourse = stripeService.createPaymentLinkForCourse(course);
+            course.setPaymentLink(paymentLinkForCourse);
+        }
         course.setStatus(courseStatus);
         courseRepository.save(course);
+
         return courseMapper.mapToCourseResponse(course);
     }
 

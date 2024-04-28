@@ -34,4 +34,9 @@ public class QuestionServiceImpl implements QuestionService {
                 .toList()
         );
     }
+
+    @Override
+    public List<Question> uploadQuestions(List<Question> questions) {
+        return questionRepository.saveAll(questions);
+    }
 }

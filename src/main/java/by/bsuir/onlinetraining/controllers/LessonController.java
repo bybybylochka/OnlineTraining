@@ -27,6 +27,11 @@ public class LessonController {
     public LessonResponse editLesson(@PathVariable Long lessonId, @RequestBody LessonRequest request) {
         return lessonService.editLesson(lessonId, request);
     }
+    @GetMapping("/{lessonId}")
+    public LessonResponse findLessonById(@PathVariable Long lessonId) {
+        return lessonService.findLessonById(lessonId);
+    }
+
 
     @DeleteMapping("/{lessonId}")
     public void deleteLesson(@PathVariable Long lessonId) {

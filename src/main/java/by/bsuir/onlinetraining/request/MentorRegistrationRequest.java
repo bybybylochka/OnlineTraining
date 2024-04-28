@@ -11,4 +11,5 @@ public class MentorRegistrationRequest {
     private String fullName;
     private String characteristic;
     private int experience;
+//    private MultipartFile image;
 }

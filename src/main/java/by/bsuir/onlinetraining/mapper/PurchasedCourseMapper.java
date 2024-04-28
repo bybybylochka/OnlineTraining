@@ -14,8 +14,8 @@ import org.mapstruct.MappingConstants;
         uses={StudentServiceQualifier.class, CourseServiceQualifier.class}
 )
 public interface PurchasedCourseMapper {
-    @Mapping(target = "student", source = "studentId", qualifiedByName = "findStudentById")
     @Mapping(target = "course", source = "courseId", qualifiedByName = "findCourseById")
+    @Mapping(target = "completing_course", constant = "NOT_COMPLETED")
     PurchasedCourse mapToPurchasedCourse(PurchasedCourseRequest request);
     @Mapping(target = "studentId", source = "purchasedCourse.student.id")
     @Mapping(target = "courseId", source = "purchasedCourse.course.id")

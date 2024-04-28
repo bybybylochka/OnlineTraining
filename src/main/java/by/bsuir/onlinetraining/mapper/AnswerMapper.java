@@ -23,5 +23,6 @@ public interface AnswerMapper {
     @Mapping(target = "courseUnitId", source = "answer.courseUnit.id")
     @Mapping(target = "courseUnitName", source = "answer.courseUnit.name")
     @Mapping(target = "studentId", source = "answer.student.id")
+    @Mapping(target = "studentFullName", source = "answer.student.fullName")
     AnswerResponse mapToAnswerResponse(Answer answer);
 }

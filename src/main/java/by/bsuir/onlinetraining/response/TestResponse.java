@@ -10,5 +10,5 @@ import java.util.List;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class TestResponse extends CourseUnitResponse {
-    private List<QuestionResponse> questionList;
+    private List<QuestionResponse> questions;
 }

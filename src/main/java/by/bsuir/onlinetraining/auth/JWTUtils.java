@@ -62,7 +62,7 @@ public class JWTUtils {
                 .compact();
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpirationDate(token).before(new Date(System.currentTimeMillis()));
     }
 

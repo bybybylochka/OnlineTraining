@@ -7,6 +7,9 @@ import by.bsuir.onlinetraining.repositories.StudentRepository;
 import by.bsuir.onlinetraining.response.list.StudentListResponse;
 import by.bsuir.onlinetraining.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,5 +29,15 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(studentMapper::mapToStudentResponse)
                 .toList());
+    }
+
+    @Override
+    public Student getAuthenticatedStudent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        return studentRepository.findByUsername(username)
+                .orElseThrow();
     }
 }

@@ -26,6 +26,10 @@ public class Mentor implements UserDetails {
     private String fullName;
     private String characteristic;
     private int experience;
+    private String imagePath;
+    @ManyToOne
+    @JoinColumn(name = "added_by_id")
+    private Entrepreneur addedBy;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -62,6 +62,7 @@ public class PurchasedCourseServiceImpl implements PurchasedCourseService {
     @Override
     public PurchasedCourseResponse purchaseCourse(PurchasedCourseRequest courseRequest) {
         PurchasedCourse purchasedCourse = purchasedCourseMapper.mapToPurchasedCourse(courseRequest);
+        purchasedCourse.setStudent(studentService.getAuthenticatedStudent());
         PurchasedCourse savedPurchasedCourse = purchasedCourseRepository.save(purchasedCourse);
 
         return purchasedCourseMapper.mapToPurchasedCourseResponse(savedPurchasedCourse);

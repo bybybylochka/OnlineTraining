@@ -10,8 +10,8 @@ public enum CourseStatus {
     NOT_FILLED_IN(Collections.emptyList()),
     FILLED_IN(List.of(NOT_FILLED_IN)),
     UNDER_INSPECTION(List.of(FILLED_IN)),
-    APPROVED(List.of(UNDER_INSPECTION)),
-    INACTIVE(List.of(APPROVED));
+    APPROVED(List.of(UNDER_INSPECTION, FILLED_IN)),
+    INACTIVE(List.of(APPROVED, NOT_FILLED_IN));
 
     private final List<CourseStatus> beforeStatusList;
 

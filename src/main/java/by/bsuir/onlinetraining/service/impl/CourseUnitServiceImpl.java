@@ -44,6 +44,13 @@ public class CourseUnitServiceImpl implements CourseUnitService {
                  .toList());
     }
 
+    @Override
+    public List<CourseUnit> findAllUnitsEntityByCourse(Long courseId) {
+        Course course = courseService.findCourseEntityById(courseId);
+
+        return courseUnitRepository.findCourseUnitsByCourse(course);
+    }
+
 
     @Override
     public void deleteCourseUnit(Long courseUnitId) {

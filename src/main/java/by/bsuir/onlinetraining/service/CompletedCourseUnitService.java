@@ -9,4 +9,6 @@ public interface CompletedCourseUnitService {
     CompletedCourseUnitResponse completeCourseUnit(CompletedCourseUnitRequest completedCourseUnitRequest);
 
     CompletedUnitListResponse findCompletedUnits(SearchCompletedUnitsRequest searchCompletedUnitsRequest);
+
+//    StudentRatingListResponse findStudentsRating(Long courseId);
 }

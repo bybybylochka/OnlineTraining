@@ -23,7 +23,7 @@ public class Answer {
     @OneToOne
     private Student student;
     private String link;
-    private int mark;
+    private Integer mark;
     private String feedback;
     private LocalDate createdAt;
 }

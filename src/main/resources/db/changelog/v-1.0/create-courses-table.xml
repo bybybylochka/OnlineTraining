@@ -23,6 +23,5 @@
             </column>
             <column name="category" type="enum('IT','LANGUAGES','MARKETING')"/>
         </createTable>
-
     </changeSet>
 </databaseChangeLog>

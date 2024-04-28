@@ -1,14 +1,14 @@
 package by.bsuir.onlinetraining.controllers;
 
 import by.bsuir.onlinetraining.request.EntrepreneurRegistrationRequest;
+import by.bsuir.onlinetraining.request.MentorRegistrationRequest;
 import by.bsuir.onlinetraining.request.StudentRegistrationRequest;
 import by.bsuir.onlinetraining.response.AuthenticationResponse;
 import by.bsuir.onlinetraining.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +24,10 @@ public class RegistrationController {
     @PostMapping("/entrepreneur")
     public AuthenticationResponse register(@RequestBody EntrepreneurRegistrationRequest request) {
         return registrationService.register(request);
+    }
+
+    @PostMapping(value = "/mentor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AuthenticationResponse register(MentorRegistrationRequest request, @RequestParam MultipartFile image) {
+        return registrationService.register(request, image);
     }
 }

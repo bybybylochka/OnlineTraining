@@ -9,6 +9,8 @@ public interface TaskService {
 
     TaskListResponse findTasksByCourse(Long courseId);
 
+    TaskResponse findTaskById(Long taskId);
+
     TaskResponse editTask(Long taskId, TaskRequest taskRequest);
 
     void deleteTask(Long taskId);

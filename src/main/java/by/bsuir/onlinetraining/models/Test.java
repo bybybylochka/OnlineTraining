@@ -20,5 +20,5 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "id")
 public class Test extends CourseUnit {
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Question> questionList = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 }

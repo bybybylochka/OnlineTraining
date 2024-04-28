@@ -24,6 +24,11 @@ public class TaskController {
         return taskService.findTasksByCourse(courseId);
     }
 
+    @GetMapping("/{taskId}")
+    public TaskResponse findTaskById(@PathVariable Long taskId) {
+        return taskService.findTaskById(taskId);
+    }
+
     @PutMapping("/{taskId}")
     public TaskResponse editTask(@PathVariable Long taskId, @RequestBody TaskRequest taskRequest) {
         return taskService.editTask(taskId, taskRequest);

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="change_course_category" author="Ponomareva Elizaveta">
+        <modifyDataType tableName="courses" columnName="category" newDataType="enum('PROGRAMMING','DESIGN','BUSINESS', 'MARKETING', 'GAMING', 'MUSIC', 'PSYCHOLOGY', 'HEALTH', 'LANGUAGES', 'FINANCE', 'OTHER')"/>
+    </changeSet>
+</databaseChangeLog>

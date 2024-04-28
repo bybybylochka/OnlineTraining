@@ -7,4 +7,6 @@ public interface StudentService {
     Student findStudentEntityById(Long studentId);
 
     StudentListResponse findAllStudents();
+
+    Student getAuthenticatedStudent();
 }

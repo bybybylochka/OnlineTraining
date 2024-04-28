@@ -6,6 +6,7 @@ import by.bsuir.onlinetraining.models.enums.CourseStatus;
 import by.bsuir.onlinetraining.request.CourseRequest;
 import by.bsuir.onlinetraining.response.CourseResponse;
 import by.bsuir.onlinetraining.response.list.CourseListResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface CourseService {
     Course findCourseEntityById(Long courseId);
@@ -14,13 +15,15 @@ public interface CourseService {
 
     CourseListResponse findAllCourses();
 
-    CourseListResponse findCoursesByEntrepreneur(Long entrepreneurId);
+    CourseListResponse findCoursesByEntrepreneur();
+
+    CourseListResponse findCoursesByMentor();
 
     CourseListResponse findCoursesByCategory(Category category);
 
     CourseListResponse findCoursesByStatus(CourseStatus status);
 
-    CourseResponse createCourse(CourseRequest courseRequest);
+    CourseResponse createCourse(CourseRequest courseRequest, MultipartFile image);
 
     CourseResponse editCourse(Long courseId, CourseRequest courseRequest);
 

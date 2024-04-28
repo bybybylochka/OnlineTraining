@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = TestServiceQualifier.class)
 public interface QuestionMapper {
-    @Mapping(target = "test", source = "testId", qualifiedByName = "findTestById")
+//    @Mapping(target = "test", source = "testId", qualifiedByName = "findTestById")
     Question mapToQuestion(QuestionRequest request);
 
     List<Question> mapToQuestionList(List<QuestionRequest> requestList);

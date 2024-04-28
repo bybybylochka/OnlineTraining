@@ -33,6 +33,8 @@ public class Course {
     private BigDecimal price;
     @Enumerated(value = EnumType.STRING)
     private Category category;
+    private String imagePath;
+    private String paymentLink;
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseUnit> courseUnitList = new ArrayList<>();
 }

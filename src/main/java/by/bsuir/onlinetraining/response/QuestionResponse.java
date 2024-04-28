@@ -9,5 +9,6 @@ public class QuestionResponse {
     private Long id;
     private Long testId;
     private String questionContent;
+    private String answers;
     private int correctAnswerNumber;
 }

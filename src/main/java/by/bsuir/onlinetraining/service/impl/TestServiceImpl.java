@@ -3,16 +3,22 @@ package by.bsuir.onlinetraining.service.impl;
 import by.bsuir.onlinetraining.exception.EntityNotFoundException;
 import by.bsuir.onlinetraining.exception.ModifyIsNotAllowedException;
 import by.bsuir.onlinetraining.mapper.TestMapper;
+import by.bsuir.onlinetraining.models.Course;
+import by.bsuir.onlinetraining.models.Question;
 import by.bsuir.onlinetraining.models.Test;
 import by.bsuir.onlinetraining.models.enums.CourseStatus;
 import by.bsuir.onlinetraining.repositories.TestRepository;
 import by.bsuir.onlinetraining.request.TestRequest;
 import by.bsuir.onlinetraining.request.UpdateTestRequest;
 import by.bsuir.onlinetraining.response.TestResponse;
+import by.bsuir.onlinetraining.response.list.TestListResponse;
+import by.bsuir.onlinetraining.service.CourseService;
 import by.bsuir.onlinetraining.service.QuestionService;
 import by.bsuir.onlinetraining.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +26,7 @@ public class TestServiceImpl implements TestService {
     private final TestRepository testRepository;
     private final TestMapper testMapper;
     private final QuestionService questionService;
+    private final CourseService courseService;
 
     @Override
     public Test findTestEntityById(Long testId) {
@@ -35,12 +42,28 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public TestListResponse findTestsByCourse(Long courseId) {
+        Course course = courseService.findCourseEntityById(courseId);
+        List<Test> tests = testRepository.findTestsByCourse(course);
+
+        return new TestListResponse(tests
+                .stream()
+                .map(testMapper::mapToTestResponse)
+                .toList());
+    }
+
+    @Override
     public TestResponse createTest(TestRequest testRequest) {
         Test test = testMapper.mapToTest(testRequest);
+        List<Question> questions = test.getQuestions();
+        test.setQuestions(null);
         validateCourseStatus(test);
         Test savedTest = testRepository.save(test);
+        questions.forEach(question -> question.setTest(savedTest));
+        questionService.uploadQuestions(questions);
+        Test finalTest = findTestEntityById(savedTest.getId());
 
-        return testMapper.mapToTestResponse(savedTest);
+        return testMapper.mapToTestResponse(finalTest);
     }
 
     @Override
